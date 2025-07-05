@@ -100,7 +100,7 @@
 
       <div class="filters-content">
         <div class="row grid">
-          @foreach($menus as $menu)
+          @foreach($topMenus as $menu)
           <div class="col-sm-6 col-lg-4 all {{$menu->kategori->nama_kategori}}">
             <div class="box">
               <div>
