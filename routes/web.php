@@ -46,6 +46,7 @@ Route::post('/keranjang/checkout/pembayaran', [App\Http\Controllers\TransaksiCon
 Route::get('/pembayaran/{id}/success', [App\Http\Controllers\TransaksiController::class, 'success'])->name('website.success');
 
 Route::get('/reservasi', [App\Http\Controllers\ReservasiController::class, 'reservasi'])->name('website.reservasi');
+Route::post('reservasi/store', 'App\Http\Controllers\ReservasiController@store')->name('reservasi.store');
 Route::get('admin/reservasi', [App\Http\Controllers\ReservasiController::class, 'admin'])->name('admin.reservasi');
 // Route::resource('admin/reservasi', 'App\Http\Controllers\ReservasiController');
 Route::post('admin/reservasi/delete', 'App\Http\Controllers\ReservasiController@delete')->name('admin.reservasi.delete');
