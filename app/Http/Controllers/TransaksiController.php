@@ -109,6 +109,9 @@ class TransaksiController extends Controller
 
     public function keranjangAdd($id)
     {
+        if(!\Session::has('auth_phone')) {
+            return redirect()->route('view-login');
+        }
         $cart = Cart::where('phone', \Session::get('auth_phone'))->where('menu_id', $id)->where('status', 1)->first();
 
         $model = (!empty($cart)) ? $cart : new Cart();

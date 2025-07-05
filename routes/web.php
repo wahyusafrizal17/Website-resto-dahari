@@ -27,7 +27,7 @@ Route::get('/all-menu', [App\Http\Controllers\MenuController::class, 'website'])
 
 Route::get('/auth-login', function () {
     return view('website.login');
-});
+})->name('view-login');
 
 Route::get('/auth-register', function () {
     return view('website.register');
