@@ -6,7 +6,7 @@ use App\Models\Kategori;
 
 function getCountCart()
 {
-    $model = Cart::where('phone', \Session::get('phone'))->where('status', 1)->get();
+    $model = Cart::where('phone', \Session::get('no_hp'))->where('status', 1)->get();
     return count($model);
 }
 

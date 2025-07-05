@@ -96,23 +96,23 @@ class TransaksiController extends Controller
 
     public function pesanan()
     {
-        $data['model'] = Transaksi::where('phone', \Session::get('phone'))->get();
+        $data['model'] = Transaksi::where('phone', \Session::get('no_hp'))->get();
         return view('website.pesanan', $data);
     }
 
     public function keranjang()
     {
         $data['menus'] = Menu::limit(4)->get();
-        $data['model'] = Cart::where('phone', \Session::get('phone'))->where('status', 1)->get();
+        $data['model'] = Cart::where('phone', \Session::get('no_hp'))->where('status', 1)->get();
         return view('website.keranjang', $data);
     }
 
     public function keranjangAdd($id)
     {
-        $cart = Cart::where('phone', \Session::get('phone'))->where('menu_id', $id)->where('status', 1)->first();
+        $cart = Cart::where('phone', \Session::get('no_hp'))->where('menu_id', $id)->where('status', 1)->first();
 
         $model = (!empty($cart)) ? $cart : new Cart();
-        $model->phone = \Session::get('phone');
+        $model->phone = \Session::get('no_hp');
         $model->menu_id = $id;
         $model->jumlah = (!empty($cart)) ? $cart->jumlah + 1 : 1;
         $model->status = 1;
@@ -128,16 +128,16 @@ class TransaksiController extends Controller
 
     public function keranjangCheckout(Request $request)
     {
-        $data['cart'] = Cart::where('phone', \Session::get('phone'))->where('status', 1)->get();
+        $data['cart'] = Cart::where('phone', \Session::get('no_hp'))->where('status', 1)->get();
         $data['meja'] = Meja::pluck('no', 'id');
-        $data['transaksi'] = Transaksi::where('phone', \Session::get('phone'))->first();
+        $data['transaksi'] = Transaksi::where('phone', \Session::get('no_hp'))->first();
         $data['diskons'] = Diskon::all();
         return view('website.checkout', $data);
     }
 
     public function pembayaran(Request $request)
     {
-        $carts = Cart::where('phone', \Session::get('phone'))->where('status', 1)->get();
+        $carts = Cart::where('phone', \Session::get('no_hp'))->where('status', 1)->get();
         $ar = [];
 
         foreach ($carts as $index => $cart) {
@@ -155,7 +155,7 @@ class TransaksiController extends Controller
 
         $transaksi = new Transaksi();
         $transaksi->invoice = "INV-".date('is').date('h');
-        $transaksi->phone = \Session::get('phone');
+        $transaksi->phone = \Session::get('no_hp');
         $transaksi->nama = \Session::get('nama');
         $transaksi->meja_id = $request->meja_id;
         $transaksi->menu = $serializedResult;
@@ -179,7 +179,7 @@ class TransaksiController extends Controller
                 'gross_amount' => $request->total-(int)$valueDiskon,
             ),
             'customer_details' => array(
-                'phone' => \Session::get('phone'),
+                'phone' => \Session::get('no_hp'),
                 'nama' => \Session::get('nama'),
             ),
         );
@@ -188,7 +188,7 @@ class TransaksiController extends Controller
 
         $transaksi->snap_token = $snapToken;
         if($transaksi->save()){
-            Cart::where('phone',\Session::get('phone'))->update(['status' => 0]);
+            Cart::where('phone',\Session::get('no_hp'))->update(['status' => 0]);
         }
 
         return [
