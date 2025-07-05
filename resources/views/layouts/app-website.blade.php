@@ -72,12 +72,12 @@
               </li>
             </ul>
             <div class="user_option">
-              @if(!empty(\Session::get('nama')))
+              @if(!empty(\Session::get('auth_nama')))
               <a href="/keranjang" class="user_link">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="btn-cart">{{ getCountCart() }}</span>
               </a>
               <a href="javascript:void(0)" class="user_link">
-                {{ \Session::get('nama') }}
+                {{ \Session::get('auth_nama') }}
               </a>
               <a href="/new-logout" class="order_online">
                 Logout

@@ -34,16 +34,16 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
-        $request->session()->put('nama', $request->nama);
-        $request->session()->put('phone', $request->phone);
+        $request->session()->put('auth_nama', $request->nama);
+        $request->session()->put('auth_phone', $request->phone);
 
         return redirect('/');
     }
 
     public function logout(Request $request)
     {
-        $request->session()->forget('nama');
-        $request->session()->forget('phone');
+        $request->session()->forget('auth_nama');
+        $request->session()->forget('auth_phone');
 
         return redirect('/');
     }
