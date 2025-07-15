@@ -33,7 +33,7 @@
     .header_section {
       background: rgba(255,255,255,0.85);
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(1px);
       -webkit-backdrop-filter: blur(4px);
     }
     .custom_nav-container {
