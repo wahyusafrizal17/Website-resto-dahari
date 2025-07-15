@@ -122,6 +122,7 @@
                             <span class="menu-title text-truncate" data-i18n="Modal Examples">Manage Diskon</span>
                         </a>
                     </li>
+                    @if(Auth::user()->level == 'Admin')
                     <li class="nav-item {!!(Request::is('admin/reservasi*')) ? ' active' : '' !!}">
                         <a class="d-flex align-items-center" href="{{ route('admin.reservasi') }}">
                             <i data-feather="users"></i>
@@ -134,6 +135,7 @@
                             <span class="menu-title text-truncate" data-i18n="Modal Examples">Manage Pemesanan</span>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item {!!(Request::is('admin/user/*') || Request::is('admin/user')) ? ' active' : '' !!}">
                         <a class="d-flex align-items-center" href="{{ route('admin.user.index') }}">
                             <i data-feather="users"></i>

@@ -147,7 +147,7 @@
       <div class="modal-body">
         <div class="print-page">
           <center>
-            <img src="{{ asset('app-assets/images/banner/logo.png') }}" alt="" width="30%">
+            <img src="{{ asset('app-assets/images/logo.png') }}" alt="" width="30%">
           </center>
           <hr style="border-style: dashed;margin-top: -15px;">
 
