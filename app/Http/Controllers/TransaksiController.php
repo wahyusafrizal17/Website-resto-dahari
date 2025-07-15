@@ -247,7 +247,7 @@ class TransaksiController extends Controller
 
     public function updateStatusPembayaran(Request $request)
     {
-        $transaksi = Transaksi::where('invoice', $request->order_id)->first();
+        $transaksi = Transaksi::where('snap_token', $request->snap_token)->first();
         if ($transaksi) {
             $transaksi->status_pembayaran = 'success';
             $transaksi->save();

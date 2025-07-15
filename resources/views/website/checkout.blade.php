@@ -222,7 +222,7 @@ $(document).ready(function() {
                   listcatatan: listcatatan
                },
                success: function(data){
-              
+
                   snap.pay(data.data.snap_token, {
                     // Optional
                     onSuccess: function(result){
@@ -233,20 +233,21 @@ $(document).ready(function() {
                               className : 'btn btn-success'
                             }
                         },
+                      }).then(function() {
+                        // Update status pembayaran ke server setelah klik OK
+                        $.ajax({
+                          url: '/update-status-pembayaran',
+                          method: 'POST',
+                          data: {
+                            _token: '{{ csrf_token() }}',
+                            snap_token: data.data.snap_token
+                          },
+                          success: function(res) {
+                            window.location.href = '/pembayaran/'+data.data.id+'/detail';
+                          }
+                        });
                       });
-                      // Update status pembayaran ke server
-                      $.ajax({
-                        url: '/update-status-pembayaran',
-                        method: 'POST',
-                        data: {
-                          _token: '{{ csrf_token() }}',
-                          order_id: result.order_id
-                        },
-                        success: function(res) {
-                          // Optional: tampilkan notifikasi sukses
-                        }
-                      });
-                      window.location.href = '/pembayaran/'+data.data.id+'/detail';
+                      // window.location.href dipindah ke dalam success AJAX
                       /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                     },
                     // Optional
