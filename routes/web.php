@@ -51,6 +51,8 @@ Route::get('admin/reservasi', [App\Http\Controllers\ReservasiController::class, 
 // Route::resource('admin/reservasi', 'App\Http\Controllers\ReservasiController');
 Route::post('admin/reservasi/delete', 'App\Http\Controllers\ReservasiController@delete')->name('admin.reservasi.delete');
 
+Route::post('/midtrans/callback', [App\Http\Controllers\TransaksiController::class, 'midtransCallback']);
+
 Route::middleware(['authadmin'])->group(function () {
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

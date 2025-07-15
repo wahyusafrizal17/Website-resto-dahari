@@ -221,4 +221,27 @@ class TransaksiController extends Controller
     {
         return Excel::download(new TransaksiExport, 'transaksi.xlsx');
     }
+
+    public function midtransCallback(Request $request)
+    {
+        $notif = new \Midtrans\Notification();
+        $transaction = $notif->transaction_status;
+        $order_id = $notif->order_id;
+
+        // Cari transaksi berdasarkan invoice/order_id
+        $transaksi = Transaksi::where('invoice', $order_id)->first();
+
+        if ($transaksi) {
+            if ($transaction == 'settlement' || $transaction == 'capture') {
+                $transaksi->status_pembayaran = 'success';
+            } elseif ($transaction == 'pending') {
+                $transaksi->status_pembayaran = 'pending';
+            } else {
+                $transaksi->status_pembayaran = 'failed';
+            }
+            $transaksi->save();
+        }
+
+        return response()->json(['status' => 'ok']);
+    }
 }
