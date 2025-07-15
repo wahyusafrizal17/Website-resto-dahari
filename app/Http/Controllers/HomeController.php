@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if (\Auth::check() && \Auth::user()->level == 'Admin' || \Auth::user()->level == 'Petugas') {
+        if (\Auth::check() && in_array(\Auth::user()->level, ['Admin', 'Petugas']) == 'Admin') {
             return view('admin.welcome');
         } else {
             $transaksis = Transaksi::all();
