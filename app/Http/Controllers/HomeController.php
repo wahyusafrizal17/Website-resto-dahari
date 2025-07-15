@@ -26,9 +26,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if(\Auth::check() && \Auth::user()->level == 'Admin'){
+        if (\Auth::check() && \Auth::user()->level == 'Admin' || \Auth::user()->level == 'Petugas') {
             return view('admin.welcome');
-        }else{
+        } else {
             $transaksis = Transaksi::all();
 
             $menuCount = [];
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
             // Urutkan dari terbanyak
             arsort($menuCount);
-            
+
             // Ambil 3 menu terlaris
             $topMenuCounts = array_slice($menuCount, 0, 3, true);
 
@@ -81,5 +81,4 @@ class HomeController extends Controller
 
         return redirect('/');
     }
-    
 }

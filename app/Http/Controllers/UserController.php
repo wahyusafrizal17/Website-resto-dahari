@@ -42,6 +42,8 @@ class UserController extends Controller
     {
         $input = $request->all();
         $input['password'] = Hash::make($request->password);
+        // Generate username dari name: huruf kecil, tanpa spasi
+        $input['username'] = strtolower(str_replace(' ', '', $input['name']));
         User::create($input);
 
         alert()->success('Data berhasil disimpan', 'Berhasil');
@@ -82,11 +84,10 @@ class UserController extends Controller
     {
         $model = User::find($id);
         $input = $request->all();
-        if($request->password != '')
-        {
-        $input['password'] = Hash::make($request->password);
+        if ($request->password != '') {
+            $input['password'] = Hash::make($request->password);
         }
-        
+
         $model->update($input);
 
         alert()->success('Data berhasil diubah', 'Berhasil');
