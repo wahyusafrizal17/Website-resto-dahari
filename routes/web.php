@@ -52,6 +52,7 @@ Route::get('admin/reservasi', [App\Http\Controllers\ReservasiController::class, 
 Route::post('admin/reservasi/delete', 'App\Http\Controllers\ReservasiController@delete')->name('admin.reservasi.delete');
 
 Route::post('/midtrans/callback', [App\Http\Controllers\TransaksiController::class, 'midtransCallback']);
+Route::post('/update-status-pembayaran', [App\Http\Controllers\TransaksiController::class, 'updateStatusPembayaran']);
 
 Route::middleware(['authadmin'])->group(function () {
 

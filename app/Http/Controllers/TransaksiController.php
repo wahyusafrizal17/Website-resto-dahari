@@ -244,4 +244,15 @@ class TransaksiController extends Controller
 
         return response()->json(['status' => 'ok']);
     }
+
+    public function updateStatusPembayaran(Request $request)
+    {
+        $transaksi = Transaksi::where('invoice', $request->order_id)->first();
+        if ($transaksi) {
+            $transaksi->status_pembayaran = 'success';
+            $transaksi->save();
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'not found'], 404);
+    }
 }

@@ -228,11 +228,23 @@ $(document).ready(function() {
                     onSuccess: function(result){
                       swal("Berhasil", "Silahkan melakukan pembayaran", {
                         icon : "success",
-                        buttons: {        			
+                        buttons: {         
                             confirm: {
                               className : 'btn btn-success'
                             }
                         },
+                      });
+                      // Update status pembayaran ke server
+                      $.ajax({
+                        url: '/update-status-pembayaran',
+                        method: 'POST',
+                        data: {
+                          _token: '{{ csrf_token() }}',
+                          order_id: result.order_id
+                        },
+                        success: function(res) {
+                          // Optional: tampilkan notifikasi sukses
+                        }
                       });
                       window.location.href = '/pembayaran/'+data.data.id+'/detail';
                       /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
