@@ -234,7 +234,7 @@ $(document).ready(function() {
                             }
                         },
                       });
-                      window.location.href = '/pembayaran/'+data.data.id+'/success';
+                      window.location.href = '/pembayaran/'+data.data.id+'/detail';
                       /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                     },
                     // Optional
