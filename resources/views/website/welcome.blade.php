@@ -1,5 +1,24 @@
 @extends('layouts.app-website')
 @section('content')
+<style>
+  .header_section {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .custom_nav-container {
+    padding: 0.5rem 1rem;
+  }
+  .navbar-nav .nav-link {
+    color: #222831 !important;
+    font-weight: 500;
+  }
+  .navbar-nav .nav-item.active .nav-link,
+  .navbar-nav .nav-link.active {
+    color: #ffbe33 !important;
+  }
+</style>
     <!-- slider section -->
     <section class="slider_section ">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
