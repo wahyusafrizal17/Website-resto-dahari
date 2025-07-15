@@ -51,10 +51,18 @@
                     <li>{{ getCart($m)->menu->nama }} x {{ getCart($m)->jumlah }}</li>
                   @endforeach
                  </td>
-                 <td>{{ $row->status_pembayaran }}</td>
+                 <td>
+                @if($row->status_pembayaran == 'pending')
+                  <span class="badge badge-danger">Pembayaran Gagal</span>
+                @elseif($row->status_pembayaran == 'success')
+                  <span class="badge badge-info">Berhasil</span>
+                @else
+                  <span class="badge badge-secondary">{{ ucfirst($row->status_pembayaran) }}</span>
+                @endif
+                 </td>
                  <td>{{ substr($row->created_at,0,10) }}</td>
                  <td>
-                  <a href="{{ route('website.success', $row->id) }}" class="btn btn-info btn-sm">Detail <i class="fa fa-eye"></i></a>
+                  <a href="{{ route('website.detail', $row->id) }}" class="btn btn-info btn-sm">Detail <i class="fa fa-eye"></i></a>
                  </td>
               </tr>
               @endforeach

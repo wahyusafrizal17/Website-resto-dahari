@@ -43,7 +43,7 @@ Route::get('/keranjang/{id}/delete', [App\Http\Controllers\TransaksiController::
 
 Route::get('/keranjang/checkout', [App\Http\Controllers\TransaksiController::class, 'keranjangCheckout'])->name('website.checkout');
 Route::post('/keranjang/checkout/pembayaran', [App\Http\Controllers\TransaksiController::class, 'pembayaran'])->name('website.pembayaran');
-Route::get('/pembayaran/{id}/success', [App\Http\Controllers\TransaksiController::class, 'success'])->name('website.success');
+Route::get('/pembayaran/{id}/detail', [App\Http\Controllers\TransaksiController::class, 'success'])->name('website.detail');
 
 Route::get('/reservasi', [App\Http\Controllers\ReservasiController::class, 'reservasi'])->name('website.reservasi');
 Route::post('reservasi/store', 'App\Http\Controllers\ReservasiController@store')->name('reservasi.store');
@@ -53,7 +53,7 @@ Route::post('admin/reservasi/delete', 'App\Http\Controllers\ReservasiController@
 
 Route::middleware(['authadmin'])->group(function () {
 
-    Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
         Route::resource('menu', 'App\Http\Controllers\MenuController');
@@ -70,10 +70,9 @@ Route::middleware(['authadmin'])->group(function () {
 
         Route::get('transaksi', 'App\Http\Controllers\TransaksiController@index')->name('transaksi.index');
         Route::get('transaksi/export', 'App\Http\Controllers\TransaksiController@export')->name('transaksi.export');
+        Route::delete('transaksi/{id}', 'App\Http\Controllers\TransaksiController@destroy')->name('transaksi.destroy');
 
         Route::resource('user', 'App\Http\Controllers\UserController');
         Route::post('user/delete', 'App\Http\Controllers\UserController@delete')->name('user.delete');
-
-
     });
 });

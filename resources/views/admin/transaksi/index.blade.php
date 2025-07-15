@@ -79,6 +79,7 @@
                                           <th>Diskon</th>
                                           <th>Total</th>
                                           <th>Subtotal</th>
+                                          <th>Aksi</th>
                                        </tr>
                                     </thead>
                                     <tbody>
@@ -112,6 +113,13 @@
                                           <td>@currency($row->diskon)</td>
                                           <td>@currency($row->total)</td>
                                           <td>@currency($row->total-$row->diskon)</td>
+                                          <td>
+                                           <form action="{{ route('admin.transaksi.destroy', $row->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                             @csrf
+                                             @method('DELETE')
+                                             <button type="submit" class="btn btn-danger btn-sm">Hapus <i class="fa fa-trash"></i></button>
+                                           </form>
+                                         </td>
                                        </tr>
                                        @endforeach
                                     </tbody>

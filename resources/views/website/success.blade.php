@@ -37,9 +37,9 @@
 
   <section class="food_section mt-4">
     <div class="container">
-      <div class="heading_container heading_center alert alert-info">
+      <div class="heading_container heading_center alert {{ $transaksi->status_pembayaran == 'pending' ? 'alert-danger' : 'alert-info' }}">
         <h2>
-          Pembayaran Success
+          Pembayaran {{$transaksi->status_pembayaran == 'pending' ? 'Gagal' : 'Berhasil'}}
         </h2>
       </div>
     </div>
@@ -125,10 +125,11 @@
                         </div>
                     </div>
                   </div>
-
+                  @if($transaksi->status_pembayaran == 'success')
                   <div class="mt-3">
                     <button class="btn btn-warning btn-payment" data-toggle="modal" data-target="#exampleModal">Cetak Struk</button>
                   </div>
+                  @endif
             </div>
         </div>
       </div>

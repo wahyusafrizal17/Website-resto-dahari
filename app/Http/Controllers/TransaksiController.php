@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Diskon;
 use App\Exports\TransaksiExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class TransaksiController extends Controller
 {
@@ -20,9 +21,9 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-        if(!empty($request->filter)){
+        if (!empty($request->filter)) {
             $data['model'] = Transaksi::whereMonth('created_at', $request->filter)->get();
-        }else{
+        } else {
             $data['model'] = Transaksi::all();
         }
         return view('admin.transaksi.index', $data);
@@ -91,31 +92,34 @@ class TransaksiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->delete();
+        return redirect()->back()->with('error', 'Tidak diizinkan.');
     }
+
 
     public function pesanan()
     {
-        $data['model'] = Transaksi::where('phone', \Session::get('auth_phone'))->get();
+        $data['model'] = Transaksi::where('phone', Session::get('auth_phone'))->get();
         return view('website.pesanan', $data);
     }
 
     public function keranjang()
     {
         $data['menus'] = Menu::limit(4)->get();
-        $data['model'] = Cart::where('phone', \Session::get('auth_phone'))->where('status', 1)->get();
+        $data['model'] = Cart::where('phone', Session::get('auth_phone'))->where('status', 1)->get();
         return view('website.keranjang', $data);
     }
 
     public function keranjangAdd($id)
     {
-        if(!\Session::has('auth_phone')) {
+        if (!Session::has('auth_phone')) {
             return redirect()->route('view-login');
         }
-        $cart = Cart::where('phone', \Session::get('auth_phone'))->where('menu_id', $id)->where('status', 1)->first();
+        $cart = Cart::where('phone', Session::get('auth_phone'))->where('menu_id', $id)->where('status', 1)->first();
 
         $model = (!empty($cart)) ? $cart : new Cart();
-        $model->phone = \Session::get('auth_phone');
+        $model->phone = Session::get('auth_phone');
         $model->menu_id = $id;
         $model->jumlah = (!empty($cart)) ? $cart->jumlah + 1 : 1;
         $model->status = 1;
@@ -131,22 +135,22 @@ class TransaksiController extends Controller
 
     public function keranjangCheckout(Request $request)
     {
-        $data['cart'] = Cart::where('phone', \Session::get('auth_phone'))->where('status', 1)->get();
+        $data['cart'] = Cart::where('phone', Session::get('auth_phone'))->where('status', 1)->get();
         $data['meja'] = Meja::pluck('no', 'id');
-        $data['transaksi'] = Transaksi::where('phone', \Session::get('auth_phone'))->first();
+        $data['transaksi'] = Transaksi::where('phone', Session::get('auth_phone'))->first();
         $data['diskons'] = Diskon::all();
         return view('website.checkout', $data);
     }
 
     public function pembayaran(Request $request)
     {
-        $carts = Cart::where('phone', \Session::get('auth_phone'))->where('status', 1)->get();
+        $carts = Cart::where('phone', Session::get('auth_phone'))->where('status', 1)->get();
         $ar = [];
 
         foreach ($carts as $index => $cart) {
             if (isset($request->listcatatan[$index])) {
                 $ar[$cart->id] = $request->listcatatan[$index];
-            }else{
+            } else {
                 $ar[$cart->id] = '-';
             }
         }
@@ -157,9 +161,9 @@ class TransaksiController extends Controller
         $valueDiskon = preg_replace("/[^0-9]/", "", $request->diskon);
 
         $transaksi = new Transaksi();
-        $transaksi->invoice = "INV-".date('is').date('h');
-        $transaksi->phone = \Session::get('auth_phone');
-        $transaksi->nama = \Session::get('auth_nama');
+        $transaksi->invoice = "INV-" . date('is') . date('h');
+        $transaksi->phone = Session::get('auth_phone');
+        $transaksi->nama = Session::get('auth_nama');
         $transaksi->meja_id = $request->meja_id;
         $transaksi->menu = $serializedResult;
         $transaksi->status_pembayaran = 'pending';
@@ -179,19 +183,19 @@ class TransaksiController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => rand(),
-                'gross_amount' => $request->total-(int)$valueDiskon,
+                'gross_amount' => $request->total - (int)$valueDiskon,
             ),
             'customer_details' => array(
-                'phone' => \Session::get('auth_phone'),
-                'nama' => \Session::get('auth_nama'),
+                'phone' => Session::get('auth_phone'),
+                'nama' => Session::get('auth_nama'),
             ),
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         $transaksi->snap_token = $snapToken;
-        if($transaksi->save()){
-            Cart::where('phone',\Session::get('auth_phone'))->update(['status' => 0]);
+        if ($transaksi->save()) {
+            Cart::where('phone', Session::get('auth_phone'))->update(['status' => 0]);
         }
 
         return [
@@ -206,8 +210,10 @@ class TransaksiController extends Controller
         $data['meja'] = Meja::pluck('no', 'id');
         $data['transaksi'] = Transaksi::where('id', $id)->first();
 
-        $data['transaksi']->status_pembayaran = 'success';
-        $data['transaksi']->save();
+        // Jangan ubah status di sini!
+        // $data['transaksi']->status_pembayaran = 'success';
+        // $data['transaksi']->save();
+
         return view('website.success', $data);
     }
 
