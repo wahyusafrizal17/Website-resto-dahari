@@ -45,7 +45,7 @@
     </div>
   </section>
 
-  <div class="container">
+  <div class="container" style="min-height: 610px;">
     <div class="row">
         <div class="col-md-8">
             <div class="">

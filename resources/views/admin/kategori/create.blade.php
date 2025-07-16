@@ -10,10 +10,10 @@
             <div class="content-header-left col-md-9 col-12 mb-1">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Meja</h2>
+                        <h2 class="content-header-title float-start mb-0">kategori</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.meja.index') }}">Meja</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.kategori.index') }}">kategori</a>
                                 </li>
                                 <li class="breadcrumb-item active">create
                                 </li>
@@ -29,9 +29,9 @@
                      <div class="col-md-12">
                         <div class="card">
                            <div class="card-body">
-                            {{ Form::open(['url'=>route('admin.meja.store'),'class'=>'form-horizontal','files'=>true])}}
+                            {{ Form::open(['url'=>route('admin.kategori.store'),'class'=>'form-horizontal','files'=>true])}}
 
-                            @include('admin.meja._form')  
+                            @include('admin.kategori._form')  
                    
                              {!! Form::close() !!}  
                            </div>

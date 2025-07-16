@@ -8,6 +8,9 @@
   .header_section{
     background: linear-gradient(to bottom, #f1f2f3 0px, #222831 0px)
   }
+  section{
+    min-height: 550px;
+  }
 </style>
  
   <!-- food section -->

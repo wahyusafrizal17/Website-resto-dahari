@@ -1,9 +1,9 @@
 <div class="card-body">
 
   <div class="form-group">
-      <label>No Meja</label>
-      {{ Form::text('no',null,['class'=>'form-control'])}}
-      @if ($errors->has('no')) <span class="help-block" style="color:red">{{ $errors->first('no') }}</span> @endif
+      <label>Nama kategori</label>
+      {{ Form::text('nama_kategori',null,['class'=>'form-control'])}}
+      @if ($errors->has('nama_kategori')) <span class="help-block" style="color:red">{{ $errors->first('nama_kategori') }}</span> @endif
   </div>
 
 </div>
@@ -12,6 +12,6 @@
   <div class="form-group">
       <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Simpan</button>
           
-      <a href="{{ route('admin.meja.index') }}" class="btn btn-danger btn-sm"><i class="fas fa-backward"></i> Kembali</a>
+      <a href="{{ route('admin.kategori.index') }}" class="btn btn-danger btn-sm"><i class="fas fa-backward"></i> Kembali</a>
   </div>
 </div>

@@ -28,7 +28,6 @@
   <!-- nice select  -->
   <!-- font awesome style -->
   <link href="https://themewagon.github.io/feane/css/font-awesome.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -102,8 +101,7 @@
     <div class="container">
       <div class="footer-info">
         <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a>
+          Copyright &copy; <span id="displayYear"></span> Dahari Cafe Resto
         </p>
       </div>
     </div>

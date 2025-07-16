@@ -11,10 +11,10 @@
             <div class="content-header-left col-md-9 col-12 mb-1">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Meja</h2>
+                        <h2 class="content-header-title float-start mb-0">Kategori</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.meja.index') }}">Meja</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.kategori.index') }}">Kategori</a>
                                 </li>
                                 <li class="breadcrumb-item active">index
                                 </li>
@@ -31,8 +31,8 @@
                      <div class="col-md-12">
                         <div class="card">
                            <div class="card-header">
-                              <h4 class="card-title">Data Meja</h4>
-                              <a href="{{ route('admin.meja.create') }}" class="btn btn-primary btn-sm">
+                              <h4 class="card-title">Data kategori</h4>
+                              <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary btn-sm">
                                  <i class="fa fa-plus"></i> Tambah
                               </a>
                           </div>
@@ -42,7 +42,7 @@
                                     <thead>
                                        <tr>
                                           <th style="width: 5%">No</th>
-                                          <th>No Meja</th>
+                                          <th>No kategori</th>
                                           <th style="width: 20%" class="text-center">Action</th>
                                        </tr>
                                     </thead>
@@ -50,10 +50,10 @@
                                         @foreach($model as $row)
                                        <tr>
                                           <td>{{ $loop->iteration }}</td>
-                                          <td>{{ $row->no }}</td>
+                                          <td>{{ $row->nama_kategori }}</td>
                                          <td class="text-center">
                                              <div class="form-button-action">
-                                                <a href="{{ route('admin.meja.edit',[$row->id]) }}" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-sm" data-original-title="Edit">
+                                                <a href="{{ route('admin.kategori.edit',[$row->id]) }}" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-sm" data-original-title="Edit">
                                                    <i data-feather='edit'></i>
                                                 </a>
                                                 <button type="button" class="btn btn-link btn-danger btn-sm delete" data-id="{{ $row->id }}">
@@ -104,7 +104,7 @@ $(document).ready(function() {
       }).then((Delete) => {
          if (Delete) {
             $.ajax({
-               url: '{{ route('admin.meja.delete') }}',
+               url: '{{ route('admin.kategori.delete') }}',
                method: 'post',
                cache: false,
                data: {
