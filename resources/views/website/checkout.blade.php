@@ -226,7 +226,7 @@ $(document).ready(function() {
                   snap.pay(data.data.snap_token, {
                     // Optional
                     onSuccess: function(result){
-                      swal("Berhasil", "Silahkan melakukan pembayaran", {
+                      swal("Berhasil", "Pembayaran berhasil dilakukan", {
                         icon : "success",
                         buttons: {         
                             confirm: {
