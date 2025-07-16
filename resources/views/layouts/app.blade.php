@@ -28,6 +28,50 @@
         <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
             <div class="navbar-container d-flex content">
                 <ul class="nav navbar-nav align-items-center ms-auto">
+                    <li class="nav-item dropdown dropdown-notification">
+                        <a class="nav-link" href="#" id="dropdown-notification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="bell"></i>
+                            <span class="badge rounded-pill bg-danger badge-up">
+                              {{ \App\Models\Transaksi::where('konfirmasi', false)->count() }}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+                            <div class="dropdown-menu-header">
+                                <h6 class="dropdown-header mb-0">Notifikasi</h6>
+                                {{-- <span class="notification-count badge rounded-pill bg-primary float-end">3 Baru</span> --}}
+                            </div>
+                            <div class="scrollable-container media-list">
+                                @foreach(\App\Models\Transaksi::where('konfirmasi', false)->orderBy('created_at', 'desc')->limit(5)->get() as $trx)
+                                  <a class="d-flex" href="{{ route('admin.transaksi.index') }}">
+                                      <div class="list-item d-flex align-items-start">
+                                          <div class="me-1">
+                                              <i data-feather="info" class="font-medium-5 text-primary"></i>
+                                          </div>
+                                          <div class="list-item-body flex-grow-1">
+                                              <p class="media-heading mb-0"><span class="fw-bolder">Invoice: {{ $trx->invoice }}</span></p>
+                                              <small class="notification-text">Nama: {{ $trx->nama }}</small><br>
+                                              <small class="notification-text">
+                                                Menu: 
+                                                @php
+                                                  $mn = @unserialize($trx->menu);
+                                                @endphp
+                                                @if(is_array($mn))
+                                                  @foreach($mn as $m => $catatan)
+                                                    {{ optional(getCart($m)->menu)->nama ?? '-' }}@if(!$loop->last), @endif
+                                                  @endforeach
+                                                @endif
+                                              </small><br>
+                                              <small class="notification-text">Total: @currency($trx->total)</small>
+                                          </div>
+                                      </div>
+                                  </a>
+                                @endforeach
+                            </div>
+                            <div class="dropdown-menu-footer">
+                                <a class="btn btn-primary w-100" href="{{ route('admin.transaksi.index') }}">Lihat Semua Notifikasi</a>
+                            </div>
+                        </div>
+                    </li>
                     <li class="nav-item dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user-nav d-sm-flex d-none">
@@ -52,7 +96,7 @@
             <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item me-auto">
-                        <a class="navbar-brand" href="../../../html/ltr/vertical-menu-template/index.html">
+                        <a class="navbar-brand" href="/">
                             {{-- <span class="brand-logo">
                                 <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
                                     <defs>
@@ -175,11 +219,7 @@
         <div class="drag-target"></div>
         <footer class="footer footer-static footer-light">
             <p class="clearfix mb-0">
-                <span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021 <a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a>
-                    <span class="d-none d-sm-inline-block">, All rights Reserved</span>
-                </span>
-                <span class="float-md-end d-none d-md-block">Hand-crafted & Made with <i data-feather="heart"></i>
-                </span>
+                <span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; {{date('Y')}} Dahari Cafe Resto</</span>
             </p>
         </footer>
         <button class="btn btn-primary btn-icon scroll-top" type="button">

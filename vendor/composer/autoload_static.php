@@ -645,6 +645,8 @@ class ComposerStaticInit62ed18812970ef8cb14f2e3ff3534820
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Diskon\\StoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Diskon/StoreRequest.php',
         'App\\Http\\Requests\\Diskon\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Diskon/UpdateRequest.php',
+        'App\\Http\\Requests\\Kategori\\StoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Kategori/StoreRequest.php',
+        'App\\Http\\Requests\\Kategori\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Kategori/UpdateRequest.php',
         'App\\Http\\Requests\\Meja\\StoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Meja/StoreRequest.php',
         'App\\Http\\Requests\\Meja\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Meja/UpdateRequest.php',
         'App\\Http\\Requests\\Menu\\StoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Menu/StoreRequest.php',

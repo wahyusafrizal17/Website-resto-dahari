@@ -47,9 +47,9 @@ class ReservasiController extends Controller
 
         // Cek apakah reservasi bentrok (sudah ada meja yang dipakai di tanggal & jam itu)
         $conflict = Reservasi::where('meja_id', $input['meja_id'])
-                    ->where('tanggal', $input['tanggal'])
-                    ->where('jam', $input['jam'])
-                    ->exists();
+            ->where('tanggal', $input['tanggal'])
+            ->where('jam', $input['jam'])
+            ->exists();
 
         if ($conflict) {
             alert()->error('Reservasi Gagal', 'Meja sudah dipesan pada tanggal dan jam tersebut.');
@@ -139,11 +139,16 @@ class ReservasiController extends Controller
     public function reservasi()
     {
         $meja = Meja::pluck('no', 'id');
+        $qrcodeData = session('qrcodeData');
+        $nama = session('nama');
+        $no_hp = session('no_hp');
+        // Hapus session setelah diambil
+        session()->forget(['qrcodeData', 'nama', 'no_hp']);
         return view('website.reservasi', [
             'meja' => $meja,
-            'qrcodeData' => session('qrcodeData'),
-            'nama' => session('nama'),
-            'no_hp' => session('no_hp'),
+            'qrcodeData' => $qrcodeData,
+            'nama' => $nama,
+            'no_hp' => $no_hp,
         ]);
     }
 }

@@ -38,6 +38,8 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\Diskon\\StoreRequest' => $baseDir . '/app/Http/Requests/Diskon/StoreRequest.php',
     'App\\Http\\Requests\\Diskon\\UpdateRequest' => $baseDir . '/app/Http/Requests/Diskon/UpdateRequest.php',
+    'App\\Http\\Requests\\Kategori\\StoreRequest' => $baseDir . '/app/Http/Requests/Kategori/StoreRequest.php',
+    'App\\Http\\Requests\\Kategori\\UpdateRequest' => $baseDir . '/app/Http/Requests/Kategori/UpdateRequest.php',
     'App\\Http\\Requests\\Meja\\StoreRequest' => $baseDir . '/app/Http/Requests/Meja/StoreRequest.php',
     'App\\Http\\Requests\\Meja\\UpdateRequest' => $baseDir . '/app/Http/Requests/Meja/UpdateRequest.php',
     'App\\Http\\Requests\\Menu\\StoreRequest' => $baseDir . '/app/Http/Requests/Menu/StoreRequest.php',

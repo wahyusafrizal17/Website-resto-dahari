@@ -255,4 +255,12 @@ class TransaksiController extends Controller
         }
         return response()->json(['status' => 'not found'], 404);
     }
+
+    public function konfirmasi($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->konfirmasi = true;
+        $transaksi->save();
+        return redirect()->route('admin.transaksi.index')->with('success', 'Pesanan telah dikonfirmasi/diproses.');
+    }
 }

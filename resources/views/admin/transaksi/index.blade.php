@@ -69,6 +69,7 @@
                                     <thead>
                                        <tr>
                                           <th style="width: 5%">No</th>
+                                          <th>Aksi</th>
                                           <th>Invoice</th>
                                           <th>Nama Customer</th>
                                           <th>No Meja</th>
@@ -79,13 +80,26 @@
                                           <th>Diskon</th>
                                           <th>Total</th>
                                           <th>Subtotal</th>
-                                          <th>Aksi</th>
+                                          <th>Konfirmasi</th>
                                        </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($model as $row)
                                        <tr>
                                           <td>{{ $loop->iteration }}</td>
+                                          <td>
+                                            @if(!$row->konfirmasi)
+                                              <form action="{{ route('admin.transaksi.konfirmasi', $row->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success btn-sm" style="width: 100px;">Konfirmasi</button>
+                                              </form>
+                                            @endif
+                                           <form action="{{ route('admin.transaksi.destroy', $row->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                             @csrf
+                                             @method('DELETE')
+                                             <button type="submit" class="btn btn-danger btn-sm" style="width: 100px;">Hapus</button>
+                                           </form>
+                                          </td>
                                           <td>{{ $row->invoice}}</td>
                                           <td>{{ $row->nama }}</td>
                                           <td>{{ $row->meja->no }}</td>
@@ -114,12 +128,13 @@
                                           <td>@currency($row->total)</td>
                                           <td>@currency($row->total-$row->diskon)</td>
                                           <td>
-                                           <form action="{{ route('admin.transaksi.destroy', $row->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
-                                             @csrf
-                                             @method('DELETE')
-                                             <button type="submit" class="btn btn-danger btn-sm">Hapus <i class="fa fa-trash"></i></button>
-                                           </form>
-                                         </td>
+                                              @if(!$row->konfirmasi)
+                                                <span class="badge bg-warning text-dark">Belum Diproses</span>
+                                              @else
+                                                <span class="badge bg-success">Sudah Diproses</span>
+                                              @endif
+                                          </td>
+                                          
                                        </tr>
                                        @endforeach
                                     </tbody>

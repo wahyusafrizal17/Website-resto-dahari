@@ -74,6 +74,7 @@ Route::middleware(['authadmin'])->group(function () {
         Route::get('transaksi', 'App\Http\Controllers\TransaksiController@index')->name('transaksi.index');
         Route::get('transaksi/export', 'App\Http\Controllers\TransaksiController@export')->name('transaksi.export');
         Route::delete('transaksi/{id}', 'App\Http\Controllers\TransaksiController@destroy')->name('transaksi.destroy');
+        Route::post('admin/transaksi/{id}/konfirmasi', [App\Http\Controllers\TransaksiController::class, 'konfirmasi'])->name('transaksi.konfirmasi');
 
         Route::resource('user', 'App\Http\Controllers\UserController');
         Route::post('user/delete', 'App\Http\Controllers\UserController@delete')->name('user.delete');
