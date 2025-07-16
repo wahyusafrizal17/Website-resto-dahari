@@ -47,7 +47,7 @@ class UserController extends Controller
         User::create($input);
 
         alert()->success('Data berhasil disimpan', 'Berhasil');
-        return redirect('user');
+        return redirect('admin/user');
     }
 
     /**
@@ -86,12 +86,13 @@ class UserController extends Controller
         $input = $request->all();
         if ($request->password != '') {
             $input['password'] = Hash::make($request->password);
+        } else {
+            unset($input['password']);
         }
-
         $model->update($input);
 
         alert()->success('Data berhasil diubah', 'Berhasil');
-        return redirect('user');
+        return redirect('admin/user');
     }
 
     /**
